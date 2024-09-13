@@ -1,0 +1,23 @@
+{
+    "name": "hexlet/code",
+    "description": "My second project",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "files": [
+            "src/Gendiff.php"
+            ]
+    },
+    "authors": [
+        {
+            "name": "Ruslana",
+            "email": "kuzina.ruslana@yandex.ru"
+        }
+    ],
+    "bin": [
+            "bin/gendiff"
+    ],
+    "require": {
+        "docopt/docopt": "^1.0"
+    }
+}
