@@ -11,6 +11,8 @@ if (file_exists($autoloadPath1)) {
     require_once $autoloadPath2;
 }
 
+use function Php\Project\Parser\readAndParseJsonFile;
+
 $doc = <<<DOC
     Generate diff
 
@@ -25,6 +27,12 @@ $doc = <<<DOC
       --format <fmt>             Report format [default: stylish]
     DOC;
 
-    $args = Docopt::handle($doc, ['version' => 'gendiff 1.0']);
+$args = Docopt::handle($doc, ['version' => 'gendiff 1.0']);
+$firstFile = $args['<firstFile>'];
+$secondFile = $args['<secondFile>'];
+$format = $args['--format'];
 
-    print_r($args);
+$file1Data = readAndParseJsonFile($firstFile);
+$file2Data = readAndParseJsonFile($secondFile);
+print_r($file1Data);
+print_r($file2Data);

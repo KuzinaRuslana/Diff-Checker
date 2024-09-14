@@ -1,11 +1,11 @@
 {
     "name": "hexlet/code",
     "description": "My second project",
-    "type": "project",
+    "type": "library",
     "license": "MIT",
     "autoload": {
         "files": [
-            
+            "src/Parser.php"
             ]
     },
     "authors": [
