@@ -2,6 +2,13 @@
 
 namespace Php\Project\Formatters\Stylish;
 
+function runBuild (array $dataFileOne, array $dataFileTwo): string
+{
+    $difference = buildStylish($dataFileOne, $dataFileTwo);
+
+    return $difference;
+}
+
 function buildStylish(array $dataFileOne, array $dataFileTwo): string
 {
     $keys = array_unique(array_merge(array_keys($dataFileOne), array_keys($dataFileTwo)));

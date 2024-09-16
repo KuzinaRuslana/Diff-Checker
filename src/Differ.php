@@ -2,8 +2,6 @@
 
 namespace Php\Project\Differ;
 
-use Php\Project\Parser\parseFile;
-
 use function Php\Project\Parser\parseFile;
 use function Php\Project\Formatters\Stylish\buildStylish;
 

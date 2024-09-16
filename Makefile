@@ -9,3 +9,6 @@ lint:
 
 dump:
 	composer dump-autoload
+
+test:
+	composer exec --verbose phpunit tests
