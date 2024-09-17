@@ -2,7 +2,7 @@
 
 namespace Php\Project\Formatters\Stylish;
 
-function runBuild (array $dataFileOne, array $dataFileTwo): string
+function runBuild(array $dataFileOne, array $dataFileTwo): string
 {
     $difference = buildStylish($dataFileOne, $dataFileTwo);
 
