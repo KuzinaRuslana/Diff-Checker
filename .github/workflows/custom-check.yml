@@ -1,6 +1,6 @@
 name: My check
 on:
-  - push
+  push
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -14,7 +14,7 @@ jobs:
         run: make install
       - name: Run linter
         run: make lint
-      -name: Run test and publish code coverage
+      - name: Run test and publish code coverage
         uses: paambaati/codeclimate-action@v5.0.0
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
