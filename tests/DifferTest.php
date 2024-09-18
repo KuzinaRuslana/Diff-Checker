@@ -20,4 +20,12 @@ class DifferTest extends TestCase {
         $actual = genDiff($this->getFixtureFullPath('file1.json'), $this->getFixtureFullPath('file2.json'));
         $this->assertEquals($expected, $actual);
     }
+
+    public function testFlatYaml(): void
+    {
+        $pathToResult = $this->getFixtureFullPath('stylish-expected.txt');
+        $expected = file_get_contents($pathToResult);
+        $actual = genDiff($this->getFixtureFullPath('file1.yml'), $this->getFixtureFullPath('file2.yml'));
+        $this->assertEquals($expected, $actual);
+    }
 }

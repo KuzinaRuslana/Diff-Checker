@@ -2,17 +2,29 @@
 
 namespace Php\Project\Parser;
 
-function readFile($file): string
-{
-    $fileToString = file_get_contents($file);
+use Symfony\Component\Yaml\Yaml;
 
-    return $fileToString;
+function getContent($pathToFile): array
+{
+    return ['dataFormat' => getFileFormat($pathToFile), 'dataContent' => file_get_contents($pathToFile)];
 }
 
-function parseFile(string $file): array
+function getFileFormat($pathToFile): string
 {
-    $fileToString = readFile($file);
-    $data = json_decode($fileToString, true);
+    return pathInfo($pathToFile, PATHINFO_EXTENSION);
+}
 
-    return $data;
+function parseFile(string $pathToFile): array
+{
+    $fileContent = getContent($pathToFile);
+    $fileExtension = $fileContent['dataFormat'];
+    $fileData = $fileContent['dataContent'];
+
+    $result = match ($fileExtension) {
+        'json' => json_decode($fileData, true),
+        'yml', 'yaml' => Yaml::parse($fileData),
+        default => 'The format is not supported.'
+    };
+
+    return $result;
 }
