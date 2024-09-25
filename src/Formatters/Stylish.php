@@ -67,7 +67,7 @@ function stringify($value, int $depth = 1): string
         return "{$indent}{$key}: {$formattedValue}";
     }, $keys);
 
-    $str = implode("\n", $array);
+    $string = implode("\n", $array);
 
-    return "{\n{$str}\n{$bracketIndent}}";
+    return "{\n{$string}\n{$bracketIndent}}";
 }
