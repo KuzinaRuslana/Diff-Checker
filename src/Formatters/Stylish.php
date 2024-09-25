@@ -2,41 +2,72 @@
 
 namespace Php\Project\Formatters\Stylish;
 
-function runBuildStylish(array $dataFileOne, array $dataFileTwo): string
-{
-    $difference = buildStylish($dataFileOne, $dataFileTwo);
+const SPACE_COUNT = 4;
+const LEFT_SHIFT = 2;
 
-    return $difference;
+function makeStylish(array $diff): string
+{
+    $result = iter($diff);
+
+    return "{\n{$result}\n}";
 }
 
-function buildStylish(array $dataFileOne, array $dataFileTwo): string
+function iter(array $diff, int $depth = 1): string
 {
-    $keys = array_unique(array_merge(array_keys($dataFileOne), array_keys($dataFileTwo)));
-    sort($keys);
-    $difference = [];
+    $indent = str_repeat(' ', $depth * SPACE_COUNT - LEFT_SHIFT);
+    $symbols = ['added' => '+', 'deleted' => '-', 'unchanged' => ' '];
 
-    $difference = array_reduce($keys, function ($acc, $key) use ($dataFileOne, $dataFileTwo) {
-        $valueOne = $dataFileOne[$key] ?? null;
-        $valueTwo = $dataFileTwo[$key] ?? null;
+    $difference = array_map(function ($item) use ($symbols, $indent, $depth) {
+        $key = $item['key'];
+        $value = isset($item['value']) ? stringify($item['value'], $depth + 1) : null;
 
-        $valueOne = is_bool($valueOne) ? ($valueOne ? 'true' : 'false') : $valueOne;
-        $valueTwo = is_bool($valueTwo) ? ($valueTwo ? 'true' : 'false') : $valueTwo;
-
-        if (!array_key_exists($key, $dataFileOne)) {
-            $acc[] = " + {$key}: {$valueTwo}";
-        } elseif (!array_key_exists($key, $dataFileTwo)) {
-            $acc[] = " - {$key}: {$valueOne}";
-        } elseif ($valueOne !== $valueTwo) {
-            $acc[] = " - {$key}: {$valueOne}";
-            $acc[] = " + {$key}: {$valueTwo}";
-        } else {
-            $acc[] = "   {$key}: {$valueOne}";
+        if ($item['status'] === 'nested') {
+            $children = iter($item['value'], $depth + 1);
+            return "{$indent}  {$key}: {\n{$children}\n{$indent}  }";
         }
 
-        return $acc;
-    }, []);
+        if ($item['status'] === 'added') {
+            return "{$indent}{$symbols['added']} {$key}: {$value}";
+        } elseif ($item['status'] === 'deleted') {
+            return "{$indent}{$symbols['deleted']} {$key}: {$value}";
+        } elseif ($item['status'] === 'changed') {
+            $oldValue = stringify($item['oldValue'], $depth + 1);
+            $newValue = stringify($item['newValue'], $depth + 1);
+            $deletedString = "{$indent}{$symbols['deleted']} {$key}: {$oldValue}";
+            $addedString = "{$indent}{$symbols['added']} {$key}: {$newValue}";
 
-    $result = implode("\n", $difference);
+            return "{$deletedString}\n{$addedString}";
+        }
 
-    return "{\n{$result}\n}\n";
+        return "{$indent}{$symbols['unchanged']} {$key}: {$value}";
+    }, $diff);
+
+    return implode("\n", $difference);
+}
+
+function stringify($value, int $depth = 1): string
+{
+    if ($value === null) {
+        return "null";
+    }
+    if (is_bool($value)) {
+        return $value ? "true" : "false";
+    }
+
+    if (!is_array($value)) {
+        return (string) $value;
+    }
+
+    $indent = str_repeat(' ', $depth * SPACE_COUNT);
+    $bracketIndent = str_repeat(' ', ($depth - 1) * SPACE_COUNT);
+    $keys = array_keys($value);
+
+    $array = array_map(function ($key) use ($value, $depth, $indent) {
+        $formattedValue = stringify($value[$key], $depth + 1);
+        return "{$indent}{$key}: {$formattedValue}";
+    }, $keys);
+
+    $str = implode("\n", $array);
+
+    return "{\n{$str}\n{$bracketIndent}}";
 }

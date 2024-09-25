@@ -32,6 +32,6 @@ $firstFile = $args['<firstFile>'];
 $secondFile = $args['<secondFile>'];
 $format = $args['--format'];
 
-$difference = gendiff($firstFile, $secondFile);
+$difference = gendiff($firstFile, $secondFile, $format);
 
 print_r($difference);

@@ -20,11 +20,9 @@ function parseFile(string $pathToFile): array
     $fileExtension = $fileContent['dataFormat'];
     $fileData = $fileContent['dataContent'];
 
-    $result = match ($fileExtension) {
+    return match ($fileExtension) {
         'json' => json_decode($fileData, true),
         'yml', 'yaml' => Yaml::parse($fileData),
-        default => 'The format is not supported.'
+        default => throw new \Exception("The file's format '$fileExtension' is not supported."),
     };
-
-    return $result;
 }

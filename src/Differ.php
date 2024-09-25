@@ -3,14 +3,15 @@
 namespace Php\Project\Differ;
 
 use function Php\Project\Parser\parseFile;
-use function Php\Project\Formatters\Stylish\runBuildStylish;
+use function Php\Project\Builder\buildDiff;
+use function Php\Project\Formatter\getFormattedDiff;
 
-function genDiff(string $pathToFileOne, string $pathToFileTwo): string
+function genDiff(string $pathToFileOne, string $pathToFileTwo, string $format = 'stylish'): string
 {
     $dataFileOne = parseFile($pathToFileOne);
     $dataFileTwo = parseFile($pathToFileTwo);
 
-    $difference = runBuildStylish($dataFileOne, $dataFileTwo);
+    $diff = buildDiff($dataFileOne, $dataFileTwo);
 
-    return $difference;
+    return getFormattedDiff($diff, $format);
 }

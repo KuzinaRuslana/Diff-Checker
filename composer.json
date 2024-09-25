@@ -7,6 +7,8 @@
         "files": [
             "src/Parser.php",
             "src/Differ.php",
+            "src/Builder.php",
+            "src/Formatter.php",
             "src/Formatters/Stylish.php"
             ]
     },
