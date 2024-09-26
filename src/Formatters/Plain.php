@@ -33,6 +33,7 @@ function iter(array $diff, $path = ''): string
                 $valueOne = getPropertyValue($item['oldValue']);
                 $valueTwo = getPropertyValue($item['newValue']);
                 $acc[] = "Property {$name} was updated. From {$valueOne} to {$valueTwo}";
+                break;
         }
 
         return $acc;
