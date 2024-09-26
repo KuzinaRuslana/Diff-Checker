@@ -16,6 +16,6 @@
 2. Compare flat YAML files:
 [![asciicast](https://asciinema.org/a/tUiqZY3OSd9YVT8uoBw5sf1Xy.svg)](https://asciinema.org/a/tUiqZY3OSd9YVT8uoBw5sf1Xy)
 3. Compare nested YAML files:
-[![asciicast](https://asciinema.org/a/qpFyP2N85DT42MXKP5ezOUnjD.svg)](https://asciinema.org/a/qpFyP2N85DT42MXKP5ezOUnjD)
-4. Plain output
+[![asciicast](https://asciinema.org/a/kvYENsNKp9xfjdbYze0uT3m6w.svg)](https://asciinema.org/a/kvYENsNKp9xfjdbYze0uT3m6w)
+4. Plain output:
 [![asciicast](https://asciinema.org/a/KhpGBwuB4FvZk7mhdv9wpvbhn.svg)](https://asciinema.org/a/KhpGBwuB4FvZk7mhdv9wpvbhn)
