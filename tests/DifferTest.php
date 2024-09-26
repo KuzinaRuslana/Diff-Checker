@@ -26,10 +26,20 @@ class DifferTest extends TestCase
 
     public function testMakeStylish(): void
     {
-        foreach ($this->formats as $format => $file) {
+        foreach ($this->formats as $format => $files) {
             $pathToResult = $this->getFixtureFullPath('stylish-expected.txt');
             $expected = file_get_contents($pathToResult);
-            $actual = genDiff($this->getFixtureFullPath($file['file1']), $this->getFixtureFullPath($file['file2']));
+            $actual = genDiff($this->getFixtureFullPath($files['file1']), $this->getFixtureFullPath($files['file2']));
+            $this->assertEquals($expected, $actual);
+        }
+    }
+
+    public function testMakePlain(): void
+    {
+        foreach ($this->formats as $format => $files) {
+            $pathToResult = $this->getFixtureFullPath('plain-expected.txt');
+            $expected = file_get_contents($pathToResult);
+            $actual = genDiff($this->getFixtureFullPath($files['file1']), $this->getFixtureFullPath($files['file2']), 'plain');
             $this->assertEquals($expected, $actual);
         }
     }

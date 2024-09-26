@@ -9,7 +9,7 @@ function makeStylish(array $diff): string
 {
     $result = iter($diff);
 
-    return "{\n{$result}\n}";
+    return "{\n{$result}\n}\n";
 }
 
 function iter(array $diff, int $depth = 1): string
