@@ -11,8 +11,7 @@
 [![Test Coverage](https://api.codeclimate.com/v1/badges/8f4886cd12677dda2f40/test_coverage)](https://codeclimate.com/github/KuzinaRuslana/php-project-48/test_coverage)
 
 ### Requirements
-— PHP version 5.3.0 or greater
-— Composer
+Requires PHP version 5.3.0 or greater and Composer
 
 ### Installation
 ```bash
