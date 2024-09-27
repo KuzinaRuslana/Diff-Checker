@@ -4,7 +4,9 @@ namespace Php\Project\Formatters\Plain;
 
 function makePlain(array $diff): string
 {
-    return iter($diff) . "\n";
+    $result = iter($diff);
+
+    return "{$result}\n";
 }
 
 function iter(array $diff, string $path = ''): string

@@ -4,5 +4,7 @@ namespace Php\Project\Formatters\Json;
 
 function makeJson(array $diff): string
 {
-    return json_encode($diff) . "\n";
+    $result = json_encode($diff);
+
+    return "{$result}\n";
 }
