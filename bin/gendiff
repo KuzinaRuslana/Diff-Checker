@@ -11,7 +11,7 @@ if (file_exists($autoloadPath1)) {
     require_once $autoloadPath2;
 }
 
-use function Php\Project\Differ\gendiff;
+use function Differ\Differ\gendiff;
 
 $doc = <<<DOC
     Generate diff
