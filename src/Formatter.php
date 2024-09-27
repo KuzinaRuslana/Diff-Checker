@@ -1,10 +1,10 @@
 <?php
 
-namespace Php\Project\Formatter;
+namespace Differ\Formatter;
 
-use function Php\Project\Formatters\Stylish\makeStylish;
-use function Php\Project\Formatters\Plain\makePlain;
-use function Php\Project\Formatters\Json\makeJson;
+use function Differ\Formatters\Stylish\makeStylish;
+use function Differ\Formatters\Plain\makePlain;
+use function Differ\Formatters\Json\makeJson;
 
 function getFormattedDiff(array $diff, string $format): string
 {

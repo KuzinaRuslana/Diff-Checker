@@ -1,6 +1,6 @@
 <?php
 
-namespace Php\Project\Builder;
+namespace Differ\Builder;
 
 function buildDiff($dataFileOne, $dataFileTwo): array
 {

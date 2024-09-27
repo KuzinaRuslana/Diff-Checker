@@ -1,6 +1,6 @@
 <?php
 
-namespace Php\Project\Formatters\Plain;
+namespace Differ\Formatters\Plain;
 
 function makePlain(array $diff): string
 {

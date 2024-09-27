@@ -1,10 +1,10 @@
 <?php
 
-namespace Php\Project\Differ;
+namespace Differ\Differ;
 
-use function Php\Project\Parser\parseFile;
-use function Php\Project\Builder\buildDiff;
-use function Php\Project\Formatter\getFormattedDiff;
+use function Differ\Parser\parseFile;
+use function Differ\Builder\buildDiff;
+use function Differ\Formatter\getFormattedDiff;
 
 function genDiff(string $pathToFileOne, string $pathToFileTwo, string $format = 'stylish'): string
 {

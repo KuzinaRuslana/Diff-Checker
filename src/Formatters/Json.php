@@ -1,6 +1,6 @@
 <?php
 
-namespace Php\Project\Formatters\Json;
+namespace Differ\Formatters\Json;
 
 function makeJson(array $diff): string
 {
