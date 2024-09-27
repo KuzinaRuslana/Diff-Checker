@@ -24,5 +24,5 @@ function getContent(string $pathToFile): array
 
 function getFileFormat(string $pathToFile): string
 {
-    return pathInfo($pathToFile, PATHINFO_EXTENSION);
+    return pathinfo($pathToFile, PATHINFO_EXTENSION);
 }
