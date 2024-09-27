@@ -43,4 +43,14 @@ class DifferTest extends TestCase
             $this->assertEquals($expected, $actual);
         }
     }
+
+    public function testMakeJson(): void
+    {
+        foreach ($this->formats as $format => $files) {
+            $pathToResult = $this->getFixtureFullPath('json-expected.txt');
+            $expected = file_get_contents($pathToResult);
+            $actual = genDiff($this->getFixtureFullPath($files['file1']), $this->getFixtureFullPath($files['file2']), 'json');
+            $this->assertEquals($expected, $actual);
+        }
+    }
 }

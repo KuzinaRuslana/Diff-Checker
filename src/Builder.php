@@ -2,7 +2,7 @@
 
 namespace Php\Project\Builder;
 
-function buildDiff($dataFileOne, $dataFileTwo)
+function buildDiff($dataFileOne, $dataFileTwo): array
 {
     $keys = array_unique(array_merge(array_keys($dataFileOne), array_keys($dataFileTwo)));
     sort($keys);

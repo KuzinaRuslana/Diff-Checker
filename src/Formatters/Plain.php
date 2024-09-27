@@ -7,7 +7,7 @@ function makePlain(array $diff): string
     return iter($diff) . "\n";
 }
 
-function iter(array $diff, $path = ''): string
+function iter(array $diff, string $path = ''): string
 {
     $filteredData = array_filter($diff, fn($item) => $item['status'] !== 'unchanged');
 

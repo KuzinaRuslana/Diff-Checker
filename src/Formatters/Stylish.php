@@ -45,7 +45,7 @@ function iter(array $diff, int $depth = 1): string
     return implode("\n", $difference);
 }
 
-function stringify($value, int $depth = 1): string
+function stringify(mixed $value, int $depth = 1): string
 {
     if ($value === null) {
         return "null";
