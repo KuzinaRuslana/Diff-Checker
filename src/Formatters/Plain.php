@@ -13,33 +13,27 @@ function iter(array $diff, string $path = ''): string
 {
     $filteredData = array_filter($diff, fn($item) => $item['status'] !== 'unchanged');
 
-    $difference = array_reduce($filteredData, function ($acc, $item) use ($path) {
+    $difference = array_map(function ($item) use ($path) {
         $status = $item['status'];
         $currentPath = $path === '' ? $item['key'] : "{$path}.{$item['key']}";
 
         switch ($status) {
             case 'nested':
-                $acc[] = iter($item['value'], $currentPath);
-                break;
+                return iter($item['value'], $currentPath);
             case 'added':
                 $name = addQuotes($currentPath);
                 $value = getPropertyValue($item['value']);
-                $acc[] = "Property {$name} was added with value: {$value}";
-                break;
+                return "Property {$name} was added with value: {$value}";
             case 'deleted':
                 $name = addQuotes($currentPath);
-                $acc[] = "Property {$name} was removed";
-                break;
+                return "Property {$name} was removed";
             case 'changed':
                 $name = addQuotes($currentPath);
                 $valueOne = getPropertyValue($item['oldValue']);
                 $valueTwo = getPropertyValue($item['newValue']);
-                $acc[] = "Property {$name} was updated. From {$valueOne} to {$valueTwo}";
-                break;
+                return "Property {$name} was updated. From {$valueOne} to {$valueTwo}";
         }
-
-        return $acc;
-    }, []);
+    }, $filteredData);
 
     return implode("\n", $difference);
 }

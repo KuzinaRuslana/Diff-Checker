@@ -2,10 +2,12 @@
 
 namespace Differ\Builder;
 
-function buildDiff($dataFileOne, $dataFileTwo): array
+use function Functional\sort as func_sort;
+
+function buildDiff(array $dataFileOne, array $dataFileTwo): array
 {
     $keys = array_unique(array_merge(array_keys($dataFileOne), array_keys($dataFileTwo)));
-    sort($keys);
+    $sortedKeys = func_sort($keys, fn($left, $right) => strcmp($left, $right));
 
     return array_map(function ($key) use ($dataFileOne, $dataFileTwo) {
         $valueOne = $dataFileOne[$key] ?? null;
@@ -24,5 +26,5 @@ function buildDiff($dataFileOne, $dataFileTwo): array
         } else {
             return ['status' => 'unchanged', 'key' => $key, 'value' => $valueOne];
         }
-    }, $keys);
+    }, $sortedKeys);
 }
