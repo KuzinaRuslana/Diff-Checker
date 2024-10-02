@@ -2,16 +2,24 @@
 
 namespace Differ\Differ;
 
+use function Differ\ContentGetter\getContent;
+use function Differ\ContentGetter\getFormat;
 use function Differ\Parser\parseFile;
 use function Differ\Builder\buildDiff;
 use function Differ\Formatter\getFormattedDiff;
 
 function genDiff(string $pathToFileOne, string $pathToFileTwo, string $format = 'stylish'): string
 {
-    $dataFileOne = parseFile($pathToFileOne);
-    $dataFileTwo = parseFile($pathToFileTwo);
+    $firstFileContent = getContent($pathToFileOne);
+    $secondFileContent = getContent($pathToFileTwo);
 
-    $diff = buildDiff($dataFileOne, $dataFileTwo);
+    $firstFileExtension = getFormat($pathToFileOne);
+    $secondFileExtension = getFormat($pathToFileTwo);
+
+    $parsedFileOne = parseFile($firstFileContent, $firstFileExtension);
+    $parsedFileTwo = parseFile($secondFileContent, $secondFileExtension);
+
+    $diff = buildDiff($parsedFileOne, $parsedFileTwo);
 
     return getFormattedDiff($diff, $format);
 }
