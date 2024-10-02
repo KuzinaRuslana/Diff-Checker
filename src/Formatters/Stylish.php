@@ -31,10 +31,10 @@ function iter(array $diff, int $depth = 1): string
         } elseif ($item['status'] === 'deleted') {
             return "{$indent}{$symbols['deleted']} {$key}: {$value}";
         } elseif ($item['status'] === 'changed') {
-            $oldValue = stringify($item['oldValue'], $depth + 1);
-            $newValue = stringify($item['newValue'], $depth + 1);
-            $deletedString = "{$indent}{$symbols['deleted']} {$key}: {$oldValue}";
-            $addedString = "{$indent}{$symbols['added']} {$key}: {$newValue}";
+            $valueOne = stringify($item['valueOne'], $depth + 1);
+            $valueTwo = stringify($item['valueTwo'], $depth + 1);
+            $deletedString = "{$indent}{$symbols['deleted']} {$key}: {$valueOne}";
+            $addedString = "{$indent}{$symbols['added']} {$key}: {$valueTwo}";
 
             return "{$deletedString}\n{$addedString}";
         }
@@ -48,10 +48,10 @@ function iter(array $diff, int $depth = 1): string
 function stringify(mixed $value, int $depth = 1): string
 {
     if ($value === null) {
-        return "null";
+        return 'null';
     }
     if (is_bool($value)) {
-        return $value ? "true" : "false";
+        return $value ? 'true' : 'false';
     }
 
     if (!is_array($value)) {

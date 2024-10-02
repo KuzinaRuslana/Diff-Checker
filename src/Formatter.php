@@ -12,6 +12,6 @@ function getFormattedDiff(array $diff, string $format): string
         'stylish' => makeStylish($diff),
         'plain' => makePlain($diff),
         'json' => makeJson($diff),
-        default => throw new \Exception("The format '$format' is not supported."),
+        default => throw new \Exception("The format '{$format}' is not supported."),
     };
 }

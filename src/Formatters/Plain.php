@@ -29,9 +29,11 @@ function iter(array $diff, string $path = ''): string
                 return "Property {$name} was removed";
             case 'changed':
                 $name = addQuotes($currentPath);
-                $valueOne = getPropertyValue($item['oldValue']);
-                $valueTwo = getPropertyValue($item['newValue']);
+                $valueOne = getPropertyValue($item['valueOne']);
+                $valueTwo = getPropertyValue($item['valueTwo']);
                 return "Property {$name} was updated. From {$valueOne} to {$valueTwo}";
+            default:
+                throw new \Exception("Unknown status: {$status}");
         }
     }, $filteredData);
 
@@ -46,10 +48,10 @@ function addQuotes(string $path): string
 function getPropertyValue(mixed $value): string
 {
     if ($value === null) {
-        return "null";
+        return 'null';
     }
     if (is_bool($value)) {
-        return $value ? "true" : "false";
+        return $value ? 'true' : 'false';
     }
     if (is_string($value)) {
         return "'{$value}'";
@@ -58,5 +60,5 @@ function getPropertyValue(mixed $value): string
         return (string) $value;
     }
 
-    return "[complex value]";
+    return '[complex value]';
 }

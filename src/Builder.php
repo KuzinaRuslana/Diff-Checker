@@ -22,7 +22,7 @@ function buildDiff(array $dataFileOne, array $dataFileTwo): array
         } elseif (!array_key_exists($key, $dataFileTwo)) {
             return ['status' => 'deleted', 'key' => $key, 'value' => $valueOne];
         } elseif ($valueOne !== $valueTwo) {
-            return ['status' => 'changed', 'key' => $key, 'oldValue' => $valueOne, 'newValue' => $valueTwo];
+            return ['status' => 'changed', 'key' => $key, 'valueOne' => $valueOne, 'valueTwo' => $valueTwo];
         } else {
             return ['status' => 'unchanged', 'key' => $key, 'value' => $valueOne];
         }
