@@ -26,7 +26,7 @@ class DifferTest extends TestCase
     }
 
     public static function provideTestData(): array
-    {    
+    {
         return [
             'json and json to stylish' => ['file1.json', 'file2.json', 'stylish'],
             'yaml and yaml to plain' => ['file1.yaml', 'file2.yaml', 'plain'],
