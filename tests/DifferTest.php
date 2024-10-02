@@ -8,50 +8,32 @@ use function Differ\Differ\genDiff;
 
 class DifferTest extends TestCase
 {
-    private $formats;
-    public function setUp(): void
-    {
-        $this->formats = [
-            'json' => ['file1' => 'file1.json', 'file2' => 'file2.json'],
-            'yaml' => ['file1' => 'file1.yaml', 'file2' => 'file2.yaml'],
-            'yml' => ['file1' => 'file1.yml', 'file2' => 'file2.yml'],
-        ];
-    }
-
-    public function getFixtureFullPath($fixtureName): bool|string
+    public function getFixtureFullPath($fixtureName): string
     {
         $parts = [__DIR__, 'fixtures', $fixtureName];
 
         return realpath(implode('/', $parts));
     }
 
-    public function testMakeStylish(): void
+    /**
+     * @dataProvider provideTestData
+     */
+    public function testGenDiff(string $fileOne, string $fileTwo, string $formatter): void
     {
-        foreach ($this->formats as $format => $files) {
-            $pathToResult = $this->getFixtureFullPath('stylish-expected.txt');
-            $expected = file_get_contents($pathToResult);
-            $actual = genDiff($this->getFixtureFullPath($files['file1']), $this->getFixtureFullPath($files['file2']));
-            $this->assertEquals($expected, $actual);
-        }
+        $expectedFile = $this->getFixtureFullPath("{$formatter}-expected.txt");
+        $actual = genDiff($this->getFixtureFullPath($fileOne), $this->getFixtureFullPath($fileTwo), $formatter);
+        $this->assertStringEqualsFile($expectedFile, $actual);
     }
 
-    public function testMakePlain(): void
-    {
-        foreach ($this->formats as $format => $files) {
-            $pathToResult = $this->getFixtureFullPath('plain-expected.txt');
-            $expected = file_get_contents($pathToResult);
-            $actual = genDiff($this->getFixtureFullPath($files['file1']), $this->getFixtureFullPath($files['file2']), 'plain');
-            $this->assertEquals($expected, $actual);
-        }
-    }
-
-    public function testMakeJson(): void
-    {
-        foreach ($this->formats as $format => $files) {
-            $pathToResult = $this->getFixtureFullPath('json-expected.txt');
-            $expected = file_get_contents($pathToResult);
-            $actual = genDiff($this->getFixtureFullPath($files['file1']), $this->getFixtureFullPath($files['file2']), 'json');
-            $this->assertEquals($expected, $actual);
-        }
+    public static function provideTestData(): array
+    {    
+        return [
+            'json and json to stylish' => ['file1.json', 'file2.json', 'stylish'],
+            'yaml and yaml to plain' => ['file1.yaml', 'file2.yaml', 'plain'],
+            'yml and yml to json' => ['file1.yml', 'file2.yml', 'json'],
+            'json and yaml to stylish' => ['file1.json', 'file2.yaml', 'stylish'],
+            'yaml and yml to plain' => ['file1.yaml', 'file2.yml', 'plain'],
+            'yml and json to json' => ['file1.yml', 'file2.json', 'json']
+        ];
     }
 }
