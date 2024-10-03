@@ -2,8 +2,8 @@
 
 namespace Differ\Differ;
 
-use function Differ\ContentGetter\getContent;
-use function Differ\ContentGetter\getFormat;
+use function Differ\InfoExtractor\getContent;
+use function Differ\InfoExtractor\getFormat;
 use function Differ\Parser\parseFile;
 use function Differ\Builder\buildDiff;
 use function Differ\Formatter\getFormattedDiff;

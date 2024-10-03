@@ -6,7 +6,7 @@
     "autoload": {
         "files": [
             "src/Differ.php",
-            "src/ContentGetter.php",
+            "src/InfoExtractor.php",
             "src/Parser.php",
             "src/Builder.php",
             "src/Formatter.php",

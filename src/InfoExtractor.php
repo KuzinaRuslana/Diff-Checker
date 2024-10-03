@@ -1,6 +1,6 @@
 <?php
 
-namespace Differ\ContentGetter;
+namespace Differ\InfoExtractor;
 
 function getContent(string $pathToFile): string
 {
