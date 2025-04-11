@@ -2,7 +2,7 @@
 
 namespace Differ\InfoExtractor;
 
-function getContent(string $pathToFile): string
+function getContent(string $pathToFile): string|false
 {
     if (file_exists($pathToFile)) {
         return file_get_contents($pathToFile);
