@@ -8,7 +8,7 @@ use function Differ\Parser\parseFile;
 use function Differ\Builder\buildDiff;
 use function Differ\Formatter\getFormattedDiff;
 
-function genDiff(string $pathToFileOne, string $pathToFileTwo, string $format = 'stylish'): string
+function genDiff(string|false $pathToFileOne, string|false $pathToFileTwo, string $format = 'stylish'): string
 {
     $firstFileContent = getContent($pathToFileOne);
     $secondFileContent = getContent($pathToFileTwo);
