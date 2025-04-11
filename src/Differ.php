@@ -13,6 +13,10 @@ function genDiff(string $pathToFileOne, string $pathToFileTwo, string $format = 
     $firstFileContent = getContent($pathToFileOne);
     $secondFileContent = getContent($pathToFileTwo);
 
+    if ($firstFileContent === false || $secondFileContent === false) {
+        throw new \Exception('Failed to read one of the files.');
+    }
+
     $firstFileExtension = getFormat($pathToFileOne);
     $secondFileExtension = getFormat($pathToFileTwo);
 
