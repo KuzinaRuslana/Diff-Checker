@@ -2,7 +2,7 @@
 
 namespace Differ\InfoExtractor;
 
-function getContent(string $pathToFile): string|false
+function getContent(string $pathToFile): string
 {
     if (!file_exists($pathToFile)) {
         throw new \Exception("Invalid file path: {$pathToFile}");
